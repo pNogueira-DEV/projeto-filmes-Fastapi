@@ -35,7 +35,6 @@ def cadastrar_filme(titulo, genero,  ano, nota):
         finally:
             cursor.close()
             conexao.close()
-cadastrar_filme("Interstellar", "Ficção Científica", 2014, 8.6)
 
 def listar_filmes():
     conexao, cursor = conector()
@@ -52,4 +51,19 @@ def listar_filmes():
         finally:
             cursor.close()
             conexao.close()
-listar_filmes()
+
+def atualizar_nota(id, nova_nota):
+    conexao, cursor = conector()
+    if conexao:
+        try:
+            cursor.execute(
+                "UPDATE filme SET nota = %s WHERE id = %s",
+                (nova_nota, id)
+            )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao atualizar nota: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
+

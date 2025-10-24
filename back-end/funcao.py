@@ -9,7 +9,7 @@ def criar_tabela():
                 CREATE TABLE IF NOT EXISTS filmes (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     titulo TEXT NOT NULL,
-                    diretor TEXT NOT NULL,
+                    genero TEXT NOT NULL,
                     ano INT NOT NULL,
                     nota FLOAT
                     )
@@ -20,5 +20,3 @@ def criar_tabela():
         finally:
             cursor.close()
             conexao.close()
-
-

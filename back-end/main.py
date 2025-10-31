@@ -8,9 +8,28 @@ app= FastAPI(title='gerenciador de filmes')
 
 @app.get("/")
 def home():
-    return ("mensagem de boas vindas")
+    return ("mensagem: Bem vindo ao gerenciador de filmes")
 
-@app.get("/filmes")
+@app.post("/filme")
 def criar_filme(titulo: str, genero: str, ano: int, nota: float):
     funcao.cadastrar_filme(titulo, genero, ano, nota)
     return {"mensagem": "Filme cadastrado com sucesso"}
+
+
+
+
+@app.get("/filme")
+def listar_filmes():
+    filmes = funcao.listar_filmes()
+    lista = []
+    for linha in filmes:
+        lista.append(
+            {
+                "id": linha[0],
+                "titulo": linha[1],
+                "genero": linha[2],
+                "ano": linha[3],
+                "nota": linha[4]
+            }
+        )
+    return {"filmes": lista}

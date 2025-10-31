@@ -21,5 +21,4 @@ def conector():
         return conexao, cursor
     except mysql.connector.Error as error:
         print(f"Erro de conexão: {error}")
-        return None, None  
-conector()
+        return None, None 

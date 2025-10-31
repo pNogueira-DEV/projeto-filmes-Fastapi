@@ -33,3 +33,17 @@ def listar_filmes():
             }
         )
     return {"filmes": lista}
+
+
+
+@app.delete("/filme/{id_filme}")
+def deletar_filmes(id_filme:int):
+    filmes = funcao.buscar_filme(id_filme)
+    if filmes:
+        funcao.deletar_filmes(id_filme)
+        return {"mensagem": "Filme deletado com sucesso"}
+    else:
+        return {"mensagem": "Filme não encontrado"}
+    
+
+@app.atualizar

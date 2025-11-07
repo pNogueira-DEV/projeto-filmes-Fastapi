@@ -10,7 +10,7 @@ st.set_page_config(page_title="Filmes", layout="wide")
 st.title("Gerenciador de Filmes")
 
 menu = st.sidebar.radio ("Menu", 
-                         ["Cadastrar filmes", "Listar filmes", "Deletar filmes"]
+                         ["Cadastrar filmes", "Listar filmes", "Deletar filmes", "Atualizar filmes"]
                          )
 
 if menu == "Listar filmes":
@@ -43,7 +43,7 @@ elif menu == "Cadastrar filmes":
 
 elif menu == "Deletar filmes":
     st.subheader("🗑️ Deletar filmes")
-    id_filme = st.number_input("id do filme a ser deletado", min_value=1, step=1)
+    id_filme = st.number_input("ID do filme a ser deletado", min_value=1, step=1)
     if st.button("Excluir"):
         response = requests.delete(f"{API_URL}/filme/{id_filme}")
         if response.status_code == 200:
@@ -54,6 +54,27 @@ elif menu == "Deletar filmes":
                 st.error("Erro ao tentar excluir o filme")
         else:
             st.error("Erro ao excluir o filme")
+
+
+elif menu == "Atualizar filmes":
+    st.subheader("🔃 Atualizar filmes ")
+    id_filme = st.number_input("id do filme a ser atualizado", min_value=1, step=1)
+    nota = st.number_input("Nova nota", min_value=0.0, max_value=10.0, step=0.5)
+    if st.button("atualizar"):
+        dados = {
+            "id": id_filme,
+            "nova_nota": nota
+        }
+        response = requests.put(f"{API_URL}/filme/{id_filme}", params=dados)
+        if response.status_code == 200:
+            data = response.json()
+            if "erro" not in data:
+                st.success("Filme atualizado coom sucesso!")
+            else:
+                st.warning(data["erro"])
+        else:
+            st.error("Erro ao atualizar filme.")
+
 
 
 

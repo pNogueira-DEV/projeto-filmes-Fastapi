@@ -46,16 +46,14 @@ def deletar_filmes(id_filme:int):
         return {"mensagem": "Filme não encontrado"}
     
 
-
-
-@app.patch("/filme/{id_filme}")
-def atualizar_nota(id_filme:int):
-    filmes = funcao.buscar_filme(id_filme)
-
+@app.put("/filme/{id_filme}")
+def atualizar_filme(id: int, nova_nota: float ):
+    filmes = funcao.buscar_filme(id)
     if filmes:
-        funcao.atualizar_nota(id_filme)
-        return{"mensagem": "Nota alterada com sucesso"}
+        funcao.atualizar_nota(id, nova_nota)
+        return{"mensagem": "Filme atualizado com sucesso!"}
     else:
-        return{"mensagem": "não foi possivel alterar a nota"}
+        return{"erro": "Filme não encontrado"}
+
     
 

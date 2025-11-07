@@ -99,6 +99,7 @@ def buscar_filme(id_filme):
         finally:
             cursor.close()
             conexao.close()
+            
 
 
         
